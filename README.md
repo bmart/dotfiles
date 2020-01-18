@@ -1,5 +1,8 @@
 # dotfiles
 
+## Install
+* install neovim 
+* install apt and pip requirements listed here: http://vim.fisadev.com/ 
 
 ## Vim Notes
 * most of this is stolen from http://vim.fisadev.com/
