@@ -56,6 +56,7 @@ Plug 'vim-scripts/IndexedSearch'
 " Terminal Vim with 256 colors colorscheme
 Plug 'fisadev/fisa-vim-colorscheme'
 
+
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -139,7 +140,9 @@ Plug 'neomake/neomake'
 " Nice icons
 Plug 'ryanoasis/vim-devicons'
 
-
+" my extras
+Plug 'flazz/vim-colorschemes/'
+Plug 'altercation/vim-colors-solarized'
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -362,7 +365,7 @@ let g:airline#extensions#whitespace#enabled = 0
 " to use fancy symbols for airline, uncomment the following lines and use a
 " patched font (more info on docs/fancy_symbols.rst)
 "if !exists('g:airline_symbols')
-   "let g:airline_symbols = {}
+"   let g:airline_symbols = {}
 "endif
 "let g:airline_left_sep = '⮀'
 "let g:airline_left_alt_sep = '⮁'
