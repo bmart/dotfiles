@@ -143,6 +143,7 @@ Plug 'ryanoasis/vim-devicons'
 " my extras
 Plug 'flazz/vim-colorschemes/'
 Plug 'altercation/vim-colors-solarized'
+Plug 'skwp/greplace.vim'
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -173,14 +174,6 @@ set nu
 
 " remove ugly vertical lines on window division
 set fillchars+=vert:\ 
-
-" use 256 colors when possible
-if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-	let &t_Co = 256
-    colorscheme fisa
-else
-    colorscheme delek
-endif
 
 " needed so deoplete can auto select the first suggestion
 set completeopt+=noinsert
