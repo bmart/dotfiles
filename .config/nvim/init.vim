@@ -1,12 +1,5 @@
-" Fisa-nvim-config
-" http://nvim.fisadev.com
-" version: 11.1
-
-" TODO current problems:
-" * end key not working undef tmux+fish
-
 " ============================================================================
-" Vim-plug initialization
+" Vim-plug initialization (borrowed from fisa-vim)
 " Avoid modifying this section, unless you are very sure of what you are doing
 
 let vim_plug_just_installed = 0
@@ -24,17 +17,9 @@ if vim_plug_just_installed
     :execute 'source '.fnameescape(vim_plug_path)
 endif
 
-" Obscure hacks done, you can now modify the rest of the .vimrc as you wish :)
-
 " ============================================================================
 " Active plugins
-" You can disable or add new ones here:
-
-" this needs to be here, so vim-plug knows we are declaring the plugins we
-" want to use
 call plug#begin('~/.config/nvim/plugged')
-
-" Now the actual plugins:
 
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
@@ -47,8 +32,6 @@ Plug 'scrooloose/nerdtree'
 
 " Class/module browser
 Plug 'majutsushi/tagbar'
-" TODO known problems:
-" * current block not refreshing
 
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
@@ -56,15 +39,11 @@ Plug 'vim-scripts/IndexedSearch'
 " Terminal Vim with 256 colors colorscheme
 Plug 'fisadev/fisa-vim-colorscheme'
 
-
 " Airline
 Plug 'vim-airline/vim-airline'
+
 Plug 'vim-airline/vim-airline-themes'
 
-" Code and files fuzzy finder
-" Plug 'ctrlpvim/ctrlp.vim'
-" Extension to ctrlp, for fuzzy command finder
-" Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -125,19 +104,8 @@ Plug 'mhinz/vim-signify'
 " Yank history navigation
 Plug 'vim-scripts/YankRing.vim'
 
-" Linters
 Plug 'neomake/neomake'
-" TODO is it running on save? or when?
-" TODO not detecting errors, just style, is it using pylint?
 
-" Relative numbering of lines (0 is the current line)
-" (disabled by default because is very intrusive and can't be easily toggled
-" on/off. When the plugin is present, will always activate the relative
-" numbering every time you go to normal mode. Author refuses to add a setting
-" to avoid that)
-"Plug 'myusuf3/numbers.vim'
-
-" Nice icons
 Plug 'ryanoasis/vim-devicons'
 
 " my extras
