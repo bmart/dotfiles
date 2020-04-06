@@ -61,16 +61,16 @@ Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug 'davidhalter/jedi-vim'
 
 " Automatically close parenthesis, etc
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
 
 " Surround
 Plug 'tpope/vim-surround'
 
 " Indent text object
-Plug 'michaeljsmith/vim-indent-object'
+"Plug 'michaeljsmith/vim-indent-object'
 
 " Indentation based movements
-Plug 'jeetsukumaran/vim-indentwise'
+"Plug 'jeetsukumaran/vim-indentwise'
 
 " Better language packs
 Plug 'sheerun/vim-polyglot'
@@ -84,13 +84,13 @@ Plug 'lilydjwg/colorizer'
 " TODO is there a better option for neovim?
 
 " Window chooser
-Plug 't9md/vim-choosewin'
+"Plug 't9md/vim-choosewin'
 
 " Automatically sort python imports
 Plug 'fisadev/vim-isort'
 
 " Highlight matching html tags
-Plug 'valloric/MatchTagAlways'
+"Plug 'valloric/MatchTagAlways'
 
 " Generate html in a simple way
 Plug 'mattn/emmet-vim'
@@ -102,7 +102,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 
 " Yank history navigation
-Plug 'vim-scripts/YankRing.vim'
+"Plug 'vim-scripts/YankRing.vim'
 
 Plug 'neomake/neomake'
 
@@ -112,6 +112,10 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'flazz/vim-colorschemes/'
 Plug 'altercation/vim-colors-solarized'
 Plug 'skwp/greplace.vim'
+
+" typescript maybe
+Plug 'leafgarland/typescript-vim'
+
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -166,9 +170,6 @@ imap <M-Left> <ESC>:tabp<CR>
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
 
-" clear search results
-nnoremap <silent> // :noh<CR>
-
 " clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
 
@@ -178,7 +179,7 @@ set shell=/bin/bash
 
 " Ability to add python breakpoints
 " (I use ipdb, but you can change it to whatever tool you use for debugging)
-au FileType python map <silent> <leader>b Oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>b breakpoint()<esc>
 
 " ============================================================================
 " Plugins settings and mappings
@@ -233,20 +234,6 @@ nmap <Leader>G :Tags<CR>
 nmap <Leader>F :Lines<CR>
 " commands finder mapping
 nmap ,c :Commands<CR>
-" to be able to call CtrlP with default search text
-"function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-    "execute ':CtrlP' . a:ctrlp_command_end
-    "call feedkeys(a:search_text)
-"endfunction
-" same as previous mappings, but calling with current word as default text
-"nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-"nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-"nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-"nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-"nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-"nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-"nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-
 
 " Deoplete -----------------------------
 
@@ -280,21 +267,6 @@ nmap ,D :tab split<CR>:call jedi#goto()<CR>
 nmap ,r :Ack 
 nmap ,wr :Ack <cword><CR>
 
-" Window Chooser ------------------------------
-
-" mapping
-nmap  -  <Plug>(choosewin)
-" show big letters
-let g:choosewin_overlay_enable = 1
-
-" Signify ------------------------------
-
-" this first setting decides in which order try to guess your current vcs
-" UPDATE it to reflect your preferences, it will speed up opening files
-let g:signify_vcs_list = [ 'git', 'hg' ]
-" mappings to jump to changed blocks
-nmap <leader>sn <plug>(signify-next-hunk)
-nmap <leader>sp <plug>(signify-prev-hunk)
 " nicer colors
 highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
 highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
@@ -303,38 +275,13 @@ highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 
-" Autoclose ------------------------------
 
-" Fix to let ESC work as espected with Autoclose plugin
-" (without this, when showing an autocompletion window, ESC won't leave insert
-"  mode)
-let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
-
-" Yankring -------------------------------
-
-" Fix for yankring and neovim problem when system has non-text things copied
-" in clipboard
-let g:yankring_clipboard_monitor = 0
-let g:yankring_history_dir = '~/.config/nvim/'
 
 " Airline ------------------------------
 
-let g:airline_powerline_fonts = 0
-let g:airline_theme = 'bubblegum'
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'solarized_flood'
 let g:airline#extensions#whitespace#enabled = 0
-
-" to use fancy symbols for airline, uncomment the following lines and use a
-" patched font (more info on docs/fancy_symbols.rst)
-"if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-"endif
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
-"let g:airline_symbols.branch = '⭠'
-"let g:airline_symbols.readonly = '⭤'
-"let g:airline_symbols.linenr = '⭡'
 
 
 " Custom configurations ----------------
