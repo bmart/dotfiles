@@ -36,9 +36,6 @@ Plug 'majutsushi/tagbar'
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
 
-" Terminal Vim with 256 colors colorscheme
-Plug 'fisadev/fisa-vim-colorscheme'
-
 " Airline
 Plug 'vim-airline/vim-airline'
 
@@ -50,47 +47,25 @@ Plug 'junegunn/fzf.vim'
 " Pending tasks list
 Plug 'fisadev/FixedTaskList.vim'
 
-" Async autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Completion from other opened files
-Plug 'Shougo/context_filetype.vim'
-" Python autocompletion
-Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-" Just to add the python go-to-definition and similar features, autocompletion
-" from this plugin is disabled
 Plug 'davidhalter/jedi-vim'
-
-" Automatically close parenthesis, etc
-"Plug 'Townk/vim-autoclose'
 
 " Surround
 Plug 'tpope/vim-surround'
-
-" Indent text object
-"Plug 'michaeljsmith/vim-indent-object'
-
-" Indentation based movements
-"Plug 'jeetsukumaran/vim-indentwise'
 
 " Better language packs
 Plug 'sheerun/vim-polyglot'
 
 " Ack code search (requires ack installed in the system)
 Plug 'mileszs/ack.vim'
-" TODO is there a way to prevent the progress which hides the editor?
 
 " Paint css colors with the real color
 Plug 'lilydjwg/colorizer'
-" TODO is there a better option for neovim?
 
 " Window chooser
-"Plug 't9md/vim-choosewin'
+Plug 't9md/vim-choosewin'
 
 " Automatically sort python imports
 Plug 'fisadev/vim-isort'
-
-" Highlight matching html tags
-"Plug 'valloric/MatchTagAlways'
 
 " Generate html in a simple way
 Plug 'mattn/emmet-vim'
@@ -101,11 +76,6 @@ Plug 'tpope/vim-fugitive'
 " Git/mercurial/others diff icons on the side of the file lines
 Plug 'mhinz/vim-signify'
 
-" Yank history navigation
-"Plug 'vim-scripts/YankRing.vim'
-
-Plug 'neomake/neomake'
-
 Plug 'ryanoasis/vim-devicons'
 
 " my extras
@@ -115,7 +85,6 @@ Plug 'skwp/greplace.vim'
 
 " typescript maybe
 Plug 'leafgarland/typescript-vim'
-
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -131,10 +100,7 @@ endif
 " ======= A few of mine ======="
 let mapleader="\<Space>"
 " 
-" ============================================================================
-" Vim settings and mappings
-" You can edit them as you wish
-
+"
 " tabs and spaces handling
 set expandtab
 set tabstop=4
@@ -160,13 +126,6 @@ set wildmode=list:longest
 " save as sudo
 ca w!! w !sudo tee "%"
 
-" tab navigation mappings
-map tt :tabnew 
-map <M-Right> :tabn<CR>
-imap <M-Right> <ESC>:tabn<CR>
-map <M-Left> :tabp<CR>
-imap <M-Left> <ESC>:tabp<CR>
-
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
 
@@ -174,18 +133,10 @@ set scrolloff=3
 autocmd BufWritePre *.py :%s/\s\+$//e
 
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
-" (neomake, ...)
 set shell=/bin/bash 
 
-" Ability to add python breakpoints
-" (I use ipdb, but you can change it to whatever tool you use for debugging)
 au FileType python map <silent> <leader>b breakpoint()<esc>
 
-" ============================================================================
-" Plugins settings and mappings
-" Edit them as you wish.
-
-" Tagbar -----------------------------
 
 " toggle tagbar display
 nmap <Leader>tb :TagbarToggle<CR>
@@ -206,20 +157,6 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " show pending tasks list
 map <F2> :TaskList<CR>
 
-" Neomake ------------------------------
-
-" Run linter on write
-autocmd! BufWritePost * Neomake
-
-" Check code as python3 by default
-let g:neomake_python_python_maker = neomake#makers#ft#python#python()
-let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
-let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
-let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
-
-" Disable error messages inside the buffer, next to the problematic line
-let g:neomake_virtualtext_current_error = 0
-
 " Fzf ------------------------------
 
 " file finder mapping
@@ -235,21 +172,10 @@ nmap <Leader>F :Lines<CR>
 " commands finder mapping
 nmap ,c :Commands<CR>
 
-" Deoplete -----------------------------
-
-" Use deoplete.
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-" complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
-
 " Jedi-vim ------------------------------
 
 " Disable autocompletion (using deoplete instead)
-let g:jedi#completions_enabled = 0
+"let g:jedi#completions_enabled = 0
 
 " All these mappings work only for python code:
 " Go to definition
@@ -261,12 +187,6 @@ let g:jedi#goto_assignments_command = ',a'
 " Go to definition in new tab
 nmap ,D :tab split<CR>:call jedi#goto()<CR>
 
-" Ack.vim ------------------------------
-
-" mappings
-nmap ,r :Ack 
-nmap ,wr :Ack <cword><CR>
-
 " nicer colors
 highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
 highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
@@ -275,14 +195,11 @@ highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 
-
-
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized_flood'
 let g:airline#extensions#whitespace#enabled = 0
-
 
 " Custom configurations ----------------
 
