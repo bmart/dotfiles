@@ -1,0 +1,17 @@
+{
+    "sasslint.configFile": "./scss-lint.yml",
+    "html.format.endWithNewline": true,
+    "html.format.indentHandlebars": true,
+    "markdown.preview.breaks": true,
+    "[typescript]": {
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.formatOnSave": true
+    },
+    "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+    "python.pythonPath": ".django_content_services_venv/bin/python3.7",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
