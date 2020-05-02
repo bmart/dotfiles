@@ -130,6 +130,9 @@ noremap <silent> <C-Right> :vertical resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 
+"save current buffer
+nnoremap <leader>w :w<cr>
+
 " remove ugly vertical lines on window division
 set fillchars+=vert:\ 
 
@@ -152,7 +155,7 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 set shell=/bin/bash 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ~> Language Setup
+" ~> Language / Tool Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " TYPESCRIPT
@@ -163,6 +166,10 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 " PYTHON
 let g:python_highlight_all = 1
 au FileType python map <silent> <leader>b breakpoint()<esc>
+
+" Git
+map <c-g>f :2,$ s/^pick/f/<CR>
+map <c-g>s :2,$ s/^pick/s/<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ~> Plugin Customizations
@@ -229,9 +236,9 @@ let g:airline#extensions#whitespace#enabled = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ~> Work related customizations
+" ~> env related customizations (optional)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if filereadable(expand("~/.config/nvim/custom.vim"))
-  source ~/.config/nvim/custom.vim
-endif
+"if filereadable(expand("~/.config/nvim/custom.vim"))
+"  source ~/.config/nvim/custom.vim
+"endif
