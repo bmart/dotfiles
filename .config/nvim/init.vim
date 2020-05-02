@@ -1,7 +1,15 @@
-" ============================================================================
-" Vim-plug initialization (borrowed from fisa-vim)
-" Avoid modifying this section, unless you are very sure of what you are doing
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"  Python/Typescript Centric init.vim for neovim (https://neovim.io/)  
+"
+"  Brian Martin 2020
+"  https://github.com/bmart
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ~> Vim Plug Auto Install hack from Fisa-dev  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let vim_plug_just_installed = 0
 let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
 if !filereadable(vim_plug_path)
@@ -17,8 +25,10 @@ if vim_plug_just_installed
     :execute 'source '.fnameescape(vim_plug_path)
 endif
 
-" ============================================================================
-" Active plugins
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ~> VimPlug plugin setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
 " Override configs by directory
@@ -81,7 +91,6 @@ Plug 'mhinz/vim-signify'
 " Icons for NERDTree
 Plug 'ryanoasis/vim-devicons'
 
-
 " Typescript / COC
 Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for' : 'typescript'}
@@ -96,15 +105,16 @@ Plug 'skwp/greplace.vim'
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
 
-" ============================================================================
-" Install plugins the first time vim runs
-
+" On first load ever, do this  ( fisa-dev ty) 
 if vim_plug_just_installed
     echo "Installing Bundles, please ignore key map error messages"
     :PlugInstall
 endif
 
-" tabs and spaces handling
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ~> General Setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
 set tabstop=4
 set softtabstop=4
@@ -120,12 +130,12 @@ noremap <silent> <C-Right> :vertical resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 
-
 " remove ugly vertical lines on window division
 set fillchars+=vert:\ 
 
 " needed so deoplete can auto select the first suggestion
 set completeopt+=noinsert
+
 " (displays documentation related to the selected completion option)
 set completeopt-=preview
 
@@ -141,34 +151,52 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 set shell=/bin/bash 
 
-" breakpoint shortcut
-au FileType python map <silent> <leader>b breakpoint()<esc>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ~> Language Setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" coc Typescript stuff
+" TYPESCRIPT
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
-" Control -P ( not currently using )
+" PYTHON
+let g:python_highlight_all = 1
+au FileType python map <silent> <leader>b breakpoint()<esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ~> Plugin Customizations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"
+" -- Control P --
+"
 nmap <c-R> :CtrlPBufTag<cr>
 nmap <c-e> :CtrlPMRUFiles<cr>
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|.git\|\*.js'
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:20'
 
-" toggle tagbar display
+" 
+" -- TagBar --
+"
 nmap <Leader>tb :TagbarToggle<CR>
-" autofocus on tagbar open
 let g:tagbar_autofocus = 1
 
-" NERDTree
+" 
+" -- NerdTree --
+"
 nmap <Leader>e :NERDTreeToggle<CR>
 nmap ,e :NERDTreeFind<CR>
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
-" Tasklist
+" 
+" -- TaskList --
+"
 map <F2> :TaskList<CR>
 
-" Fzf 
+" 
+" -- FZF --
+"
 nmap <Leader>f :Files<CR>
 " tags (symbols) in current file finder mapping
 nmap <Leader>g :BTag<CR>
@@ -179,7 +207,9 @@ nmap <Leader>F :Lines<CR>
 " commands finder mapping
 nmap ,c :Commands<CR>
 
-" Jedi-vim 
+" 
+" -- Jedi-Vim --
+"
 " Go to definition
 let g:jedi#goto_command = ',d'
 " Find ocurrences
@@ -189,16 +219,19 @@ let g:jedi#goto_assignments_command = ',a'
 " Go to definition in new tab
 nmap ,D :tab split<CR>:call jedi#goto()<CR>
 
-" Airline 
+
+"
+" --  Airline --
+"
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized_flood'
 let g:airline#extensions#whitespace#enabled = 0
 
-" General Python
-let g:python_highlight_all = 1
-au FileType python map <silent> <leader>b breakpoint()<esc>
 
-" Include user's custom nvim configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ~> Work related customizations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if filereadable(expand("~/.config/nvim/custom.vim"))
   source ~/.config/nvim/custom.vim
 endif
