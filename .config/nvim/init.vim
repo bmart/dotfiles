@@ -93,7 +93,9 @@ Plug 'ryanoasis/vim-devicons'
 
 " Typescript / COC
 Plug 'leafgarland/typescript-vim'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for' : 'typescript'}
+Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile', 'for' : 'typescript'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'ianks/vim-tsx'
 
 " My Extras
@@ -101,6 +103,8 @@ Plug 'flazz/vim-colorschemes/'
 Plug 'altercation/vim-colors-solarized'
 Plug 'dikiaap/minimalist'
 Plug 'skwp/greplace.vim'
+Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -124,6 +128,10 @@ set nu
 
 colorscheme delek
 colorscheme monokai-phoenix
+colorscheme gruvbox-material
+set background=dark
+" Good outside colorscheme
+"colorscheme srcery 
 
 " split settings / note control-w c to close a split / also to resize  :resize
 set splitbelow splitright
@@ -137,6 +145,9 @@ noremap <silent> <C-Down> :resize -3<CR>
 map tt :tabnew 
 map <Leader><Right> <ESC>:tabn<CR>
 map <Leader><Left> <ESC>:tabp<CR>
+
+" quickly close quick fix window
+nnoremap <leader>c :cclose<CR>
 
 "save current buffer
 nnoremap <leader>w :w<cr>
@@ -162,18 +173,30 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 set shell=/bin/bash 
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ~> Language / Tool Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " TYPESCRIPT
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
+"let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
+" COC
+"nmap <leader>gd <Plug>(coc-definition)
+"nmap <leader>gy <Plug>(coc-type-definition)
+"nmap <leader>gi <Plug>(coc-implementation)
+"nmap <leader>gr <Plug>(coc-references)
+"nmap <leader>rr <Plug>(coc-rename)
+"nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+"nmap <leader>g] <Plug>(coc-diagnostic-next)
+"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
+"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
+
 " PYTHON
 let g:python_highlight_all = 1
-au FileType python map <silent> <leader>b breakpoint()<esc>
+"au FileType python map <silent> <leader>d breakpoint()<esc>
 
 " Git
 map <c-g>f :2,$ s/^pick/f/<CR>
@@ -186,10 +209,10 @@ map <c-g>s :2,$ s/^pick/s/<CR>
 "
 " -- Control P --
 "
-nmap <c-R> :CtrlPBufTag<cr>
-nmap <c-e> :CtrlPMRUFiles<cr>
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|.git\|\*.js'
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:20'
+"nmap <c-R> :CtrlPBufTag<cr>
+"nmap <c-e> :CtrlPMRUFiles<cr>
+"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|.git\|\*.js'
+"let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:20'
 
 " 
 " -- TagBar --
@@ -234,6 +257,9 @@ let g:jedi#goto_assignments_command = ',a'
 " Go to definition in new tab
 nmap ,D :tab split<CR>:call jedi#goto()<CR>
 
+" need showmode off for call signatures in command line  no{option}
+set noshowmode
+let g:jedi#show_call_signatures = 2
 
 "
 " --  Airline --
@@ -243,6 +269,12 @@ let g:airline_theme = 'solarized_flood'
 let g:airline#extensions#whitespace#enabled = 0
 
 
+"
+" --  Fugitive --
+"
+nnoremap <leader>b :Gblame<CR>
+
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ~> env related customizations (optional)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

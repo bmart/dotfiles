@@ -42,10 +42,10 @@ ZSH_THEME="cloud"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -136,7 +136,7 @@ function cc_list_indexes()
 {
     if [ "$1" = "dev" ] 
     then
-        curl -X GET http://dev-content-search.internal.dev.postmedia.digital/_cat/indices
+        curl -X GET http://dev-content-search.internal.dev.postmedia.digital/_cat/indices?v&s=index
     else
         curl -X GET http://localhost:9200/_cat/indices
     fi
@@ -159,6 +159,16 @@ function cc_branches()
     cat ~/.current_branches
 }
 
+# capture ovverride for current fem branch and send it to tty and clipboard
+function override_url()
+{
+    commit=`git log --pretty=format:'%h' -n 1`
+    branch=`git rev-parse --abbrev-ref HEAD`
+    override_url="?fem_override=${branch}-${commit}"
+    echo $override_url
+    echo $override_url | pbcopy
+}
+
 # Use ~~ as the trigger sequence instead of the default **
  export FZF_COMPLETION_TRIGGER='**'
 #
@@ -170,3 +180,4 @@ function cc_branches()
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
+
