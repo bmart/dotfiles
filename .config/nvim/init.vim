@@ -31,6 +31,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
+
+
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
 
@@ -60,6 +62,9 @@ Plug 'fisadev/FixedTaskList.vim'
 
 " Jedi
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
+" Neomake
+"Plug 'neomake/neomake'
 
 " Surround
 Plug 'tpope/vim-surround'
@@ -93,7 +98,7 @@ Plug 'ryanoasis/vim-devicons'
 
 " Typescript / COC
 Plug 'leafgarland/typescript-vim'
-Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile', 'for' : 'typescript'}
+Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile' }
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ianks/vim-tsx'
@@ -123,6 +128,7 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set noautoindent
 let mapleader="\<Space>"
 set nu
 
@@ -130,6 +136,13 @@ colorscheme delek
 colorscheme monokai-phoenix
 colorscheme gruvbox-material
 set background=dark
+
+
+" These two lines will allow nvim background to be transparent like the iterm
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+
+
 " Good outside colorscheme
 "colorscheme srcery 
 
@@ -140,6 +153,12 @@ noremap <silent> <C-Left> :vertical resize +3<CR>
 noremap <silent> <C-Right> :vertical resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
+
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 "tab navigation
 map tt :tabnew 
@@ -183,16 +202,6 @@ set shell=/bin/bash
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
-" COC
-"nmap <leader>gd <Plug>(coc-definition)
-"nmap <leader>gy <Plug>(coc-type-definition)
-"nmap <leader>gi <Plug>(coc-implementation)
-"nmap <leader>gr <Plug>(coc-references)
-"nmap <leader>rr <Plug>(coc-rename)
-"nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-"nmap <leader>g] <Plug>(coc-diagnostic-next)
-"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
-"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
 
 " PYTHON
 let g:python_highlight_all = 1
@@ -205,6 +214,26 @@ map <c-g>s :2,$ s/^pick/s/<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ~> Plugin Customizations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" COC
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+nmap <leader>g] <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
+
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint', 
+  \ 'coc-prettier', 
+  \ 'coc-json', 
+  \ ]
 
 "
 " -- Control P --
@@ -274,11 +303,32 @@ let g:airline#extensions#whitespace#enabled = 0
 "
 nnoremap <leader>b :Gblame<CR>
 
+
+"
+" -- Neomake  --
+"
+"autocmd! BufWritePost * Neomake
+"let g:neomake_python_python_maker = neomake#makers#ft#python#python()
+"let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
+"let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
+"let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
+
+" Disable error messages inside the buffer, next to the problematic line
+"let g:neomake_virtualtext_current_error = 0
+"let g:neomake_python_enabled_makers = ['flake8']
+
+
+
+
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ~> env related customizations (optional)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"if filereadable(expand("~/.config/nvim/custom.vim"))
-"  source ~/.config/nvim/custom.vim
-"endif
+if filereadable(expand("~/.config/nvim/custom.vim"))
+  source ~/.config/nvim/custom.vim
+endif
+
+if filereadable(expand("~/.config/nvim/ben.vim"))
+  source ~/.config/nvim/ben.vim
+endif
