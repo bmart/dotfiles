@@ -84,7 +84,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 export PATH=/Users/bmartin/Tools/bin:$PATH
-export PATH=/Users/bmartin/Library/Python/3.7/bin:$PATH
+export PATH=/Users/bmartin/Library/Python/3.9/bin:$PATH
 . /Users/bmartin/Tools/z/z.sh
 export PATH=/usr/local/bin:$PATH
 
@@ -159,6 +159,14 @@ function cc_branches()
     cat ~/.current_branches
 }
 
+function jira() {
+    open https://postmediadigital.atlassian.net/browse/$1
+}
+
+function build_fem() {
+  open "https://jenkins.dev.postmedia.digital/job/Frontend%20Modules%20Jobs/job/frontend_snapshots_build/build?delay=0sec"
+}
+
 # capture ovverride for current fem branch and send it to tty and clipboard
 function override_url()
 {
@@ -180,4 +188,52 @@ function override_url()
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
+
+export PYTHONSTARTUP=/Users/bmartin/Tools/scripts/startup.py
+
+unsetopt correct_all
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+function d_delete_by_tag {
+    tag=$1
+    img_id=`docker image ls | grep mylatest | awk -F" " '{ print $3}'`
+    docker image rm -f $img_id
+}
+
+function d_shell_by_tag {
+    docker run -it $1 /bin/sh -login
+}
+
+function d_i_ls {
+    docker image ls
+}
+
+
+# --  home dev helpers 
+function  download_dev_pdf  {
+    aws s3 cp s3://dmh-reports/development/$1 ~/Desktop
+}
+function  copy_to_dev {
+    scp -i ~/.home.ssh/id_rsa $1 $CURRENT_DEV:.
+}
+function  exportdev {
+    export CURRENT_DEV=$1
+    echo $CURRENT_DEV >  ~/.current_dev
+}
+function sshdev {
+    ssh -i ~/.home.ssh/id_rsa $CURRENT_DEV
+    
+}
+
+function openm20 {
+    open  http://$CURRENT_DEV:8080
+}
+
+alias wiki='ssh -F ~/.home.ssh/config -i ~/.home.ssh/id_rsa  wiki'
+alias personaldev='ssh -i ~/.home.ssh/id_rsa' 
+
+# -- end of  personal dev
+
+
 

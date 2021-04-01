@@ -31,7 +31,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
-
+Plug 'dense-analysis/ale'
 
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
@@ -43,7 +43,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 
 " Class/module browser
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
@@ -58,7 +58,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Pending tasks list
-Plug 'fisadev/FixedTaskList.vim'
+"Plug 'fisadev/FixedTaskList.vim'
 
 " Jedi
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -67,7 +67,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 "Plug 'neomake/neomake'
 
 " Surround
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
 
 " Better language packs
 Plug 'sheerun/vim-polyglot'
@@ -76,13 +76,13 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mileszs/ack.vim'
 
 " Paint css colors with the real color
-Plug 'lilydjwg/colorizer'
+"Plug 'lilydjwg/colorizer'
 
 " Window chooser
-Plug 't9md/vim-choosewin'
+"Plug 't9md/vim-choosewin'
 
 " Automatically sort python imports
-Plug 'fisadev/vim-isort'
+"Plug 'fisadev/vim-isort'
 
 " Generate html in a simple way
 Plug 'mattn/emmet-vim'
@@ -98,7 +98,7 @@ Plug 'ryanoasis/vim-devicons'
 
 " Typescript / COC
 Plug 'leafgarland/typescript-vim'
-Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile', 'for' : 'typescript' }
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ianks/vim-tsx'
@@ -202,6 +202,9 @@ set shell=/bin/bash
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
+
+" Emmet
+let g:user_emmet_leader_key='<leader>e'
 
 " PYTHON
 let g:python_highlight_all = 1
