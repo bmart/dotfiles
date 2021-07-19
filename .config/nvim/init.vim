@@ -58,7 +58,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Pending tasks list
-"Plug 'fisadev/FixedTaskList.vim'
+Plug 'fisadev/FixedTaskList.vim'
 
 " Jedi
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -67,7 +67,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 "Plug 'neomake/neomake'
 
 " Surround
-"Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " Better language packs
 Plug 'sheerun/vim-polyglot'
@@ -76,13 +76,13 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mileszs/ack.vim'
 
 " Paint css colors with the real color
-"Plug 'lilydjwg/colorizer'
+Plug 'lilydjwg/colorizer'
 
 " Window chooser
-"Plug 't9md/vim-choosewin'
+Plug 't9md/vim-choosewin'
 
 " Automatically sort python imports
-"Plug 'fisadev/vim-isort'
+Plug 'fisadev/vim-isort'
 
 " Generate html in a simple way
 Plug 'mattn/emmet-vim'
@@ -129,7 +129,9 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set noautoindent
-let mapleader="\<Space>"
+"let mapleader="\<Space>"
+let mapleader=","
+set timeoutlen=300 " Set timeout length to 500 ms
 set nu
 
 colorscheme delek
@@ -256,7 +258,6 @@ let g:tagbar_autofocus = 1
 " -- NerdTree --
 "
 nmap <Leader>e :NERDTreeToggle<CR>
-nmap ,e :NERDTreeFind<CR>
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " 
@@ -275,19 +276,19 @@ nmap <Leader>G :Tags<CR>
 " general code finder in all files mapping
 nmap <Leader>F :Lines<CR>
 " commands finder mapping
-nmap ,c :Commands<CR>
+nmap <Leader>c :Commands<CR>
 
 " 
 " -- Jedi-Vim --
 "
 " Go to definition
-let g:jedi#goto_command = ',d'
+let g:jedi#goto_command = '<Leader>d'
 " Find ocurrences
-let g:jedi#usages_command = ',o'
+let g:jedi#usages_command = '<Leader>o'
 " Find assignments
-let g:jedi#goto_assignments_command = ',a'
+let g:jedi#goto_assignments_command = '<Leader>a'
 " Go to definition in new tab
-nmap ,D :tab split<CR>:call jedi#goto()<CR>
+nmap <Leader>D :tab split<CR>:call jedi#goto()<CR>
 
 " need showmode off for call signatures in command line  no{option}
 set noshowmode
