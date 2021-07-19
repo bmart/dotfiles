@@ -23,17 +23,17 @@ ZSH_THEME="cloud"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -65,7 +65,7 @@ ZSH_THEME="cloud"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+    git django docker gcloud 
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -73,14 +73,6 @@ source $ZSH/oh-my-zsh.sh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/bmartin/.nvm/versions/node/v5.12.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/bmartin/.nvm/versions/node/v5.12.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/bmartin/.nvm/versions/node/v5.12.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/bmartin/.nvm/versions/node/v5.12.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
 
 
 export PATH=/Users/bmartin/Tools/bin:$PATH
@@ -189,7 +181,7 @@ function override_url()
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
 
-export PYTHONSTARTUP=/Users/bmartin/Tools/scripts/startup.py
+# export PYTHONSTARTUP=/Users/bmartin/Tools/scripts/startup.py
 
 unsetopt correct_all
 
@@ -232,8 +224,17 @@ function openm20 {
 
 alias wiki='ssh -F ~/.home.ssh/config -i ~/.home.ssh/id_rsa  wiki'
 alias personaldev='ssh -i ~/.home.ssh/id_rsa' 
+alias milk='ssh -F ~/.home.ssh/config -i  ~/.home.ssh/id_rsa  MilkApp'
 
 # -- end of  personal dev
 
 
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bmartin/Tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bmartin/Tools/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bmartin/Tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bmartin/Tools/google-cloud-sdk/completion.zsh.inc'; fi
+
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/bmartin/.config/gcloud/application_default_credentials.json
