@@ -1,0 +1,27 @@
+[user]
+	name = Brian Martin
+	email = bmartin@postmedia.com
+[color]
+	ui = true
+[core]
+	editor = /usr/local/bin/nvim
+	excludesfile = /Users/bmartin/.gitignore_global
+[filesystem "Oracle Corporation|13.0.1|/dev/disk1s1"]
+	timestampResolution = 6000 nanoseconds
+	minRacyThreshold = 0 nanoseconds
+[alias]
+    # variables
+    branch-name = "!git rev-parse --abbrev-ref HEAD"
+    abbrev-name = "!echo $(git branch-name) | cut -c1-21 | tr \"[:upper:]\"  \"[:lower:]\""
+    repo = "!basename `git rev-parse --show-toplevel`"
+    # commands
+    publish = "!git push -u origin $(git branch-name)"
+    pr = "!open https://github.com/Postmedia-Digital/$(git repo)/pull/new/$(git branch-name)"
+    test-results = "!open https://jenkins.stage.postmedia.digital/job/django-content-services/job/ci/job/$(git branch-name)"
+    open-snapshot = "!open https://dcs-$(git abbrev-name)-windsorstar.dev.postmedia.digital"
+    
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
