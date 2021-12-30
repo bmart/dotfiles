@@ -129,8 +129,8 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set noautoindent
-"let mapleader="\<Space>"
-let mapleader=","
+let mapleader="\<Space>"
+"let mapleader=","
 set timeoutlen=300 " Set timeout length to 500 ms
 set nu
 
@@ -206,7 +206,7 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 
 " Emmet
-let g:user_emmet_leader_key='<leader>e'
+"let g:user_emmet_leader_key='<leader>e'
 
 " PYTHON
 let g:python_highlight_all = 1
@@ -303,9 +303,9 @@ let g:airline#extensions#whitespace#enabled = 0
 
 
 "
-" --  Fugitive --
+" --  Git  --
 "
-nnoremap <leader>b :Gblame<CR>
+nnoremap <leader>gb :Git blame<CR>
 
 
 "

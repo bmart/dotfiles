@@ -5,6 +5,8 @@
 export ZSH=/Users/bmartin/.oh-my-zsh
 export DCS_RC=`cat ~/.dcs-rc`
 export FEM_RC=`cat ~/.fem-rc`
+export WP_RC=`cat ~/.wp-rc`
+
 export CURRENT_BRANCHES='~/.current_branches'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -65,7 +67,7 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git django docker gcloud 
+    git docker gcloud 
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -218,6 +220,10 @@ function sshdev {
     
 }
 
+function quick_commit {
+git commit -m "$1" . --no-verify
+}
+
 function openm20 {
     open  http://$CURRENT_DEV:8080
 }
@@ -225,6 +231,7 @@ function openm20 {
 alias wiki='ssh -F ~/.home.ssh/config -i ~/.home.ssh/id_rsa  wiki'
 alias personaldev='ssh -i ~/.home.ssh/id_rsa' 
 alias milk='ssh -F ~/.home.ssh/config -i  ~/.home.ssh/id_rsa  MilkApp'
+alias python='/usr/local/bin/python3'
 
 # -- end of  personal dev
 
@@ -238,3 +245,24 @@ if [ -f '/Users/bmartin/Tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/b
 if [ -f '/Users/bmartin/Tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bmartin/Tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 export GOOGLE_APPLICATION_CREDENTIALS=/Users/bmartin/.config/gcloud/application_default_credentials.json
+
+function get_cluster_credentials {
+    env="dev"
+    if [ "$1" != "" ]; then
+        env=$1
+    fi
+    gcloud container clusters get-credentials pmd-${env}-cluster --zone=northamerica-northeast1
+}
+
+function setup_es_forward {
+    local_port=9200
+    if [ "$1" != "" ]; then
+        local_port=$1
+    fi
+    kubectl port-forward svc/elasticsearch-master 9200:9200 -n dcs-elasticsearch
+}
+
+# GCP
+alias devgc="CLOUDSDK_ACTIVE_CONFIG_NAME=pmdigital gcloud --project pmd-dev-7bac"
+alias stagegc="CLOUDSDK_ACTIVE_CONFIG_NAME=pmdigital gcloud --project pmd-stage-c1ba"
+alias prodgc="CLOUDSDK_ACTIVE_CONFIG_NAME=pmdigital gcloud --project pmd-prod-1637"
