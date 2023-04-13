@@ -43,7 +43,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 
 " Class/module browser
-"Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
@@ -82,7 +82,7 @@ Plug 'lilydjwg/colorizer'
 Plug 't9md/vim-choosewin'
 
 " Automatically sort python imports
-Plug 'fisadev/vim-isort'
+"Plug 'fisadev/vim-isort'
 
 " Generate html in a simple way
 Plug 'mattn/emmet-vim'
@@ -99,9 +99,12 @@ Plug 'ryanoasis/vim-devicons'
 " Typescript / COC
 Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile', 'for' : 'typescript' }
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'ianks/vim-tsx'
+"Plug 'ianks/vim-tsx'
+
+Plug 'tpope/vim-rails'
+
 
 " My Extras
 Plug 'flazz/vim-colorschemes/'
@@ -125,9 +128,9 @@ endif
 " ~> General Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set noautoindent
 let mapleader="\<Space>"
 "let mapleader=","
@@ -210,7 +213,6 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 " PYTHON
 let g:python_highlight_all = 1
-"au FileType python map <silent> <leader>d breakpoint()<esc>
 
 " Git
 map <c-g>f :2,$ s/^pick/f/<CR>
@@ -221,15 +223,14 @@ map <c-g>s :2,$ s/^pick/s/<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " COC
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
+"nmap <leader>gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent>gy <Plug>(coc-type-definition)
+nmap <silent>gi <Plug>(coc-implementation)
+nmap <silent>gr <Plug>(coc-references)
+nmap <silent>rr <Plug>(coc-rename)
+nmap <silent>g[ <Plug>(coc-diagnostic-prev)
+nmap <silent>g] <Plug>(coc-diagnostic-next)
 
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -238,15 +239,9 @@ let g:coc_global_extensions = [
   \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
+  \ 'coc-solargraph',
   \ ]
 
-"
-" -- Control P --
-"
-"nmap <c-R> :CtrlPBufTag<cr>
-"nmap <c-e> :CtrlPMRUFiles<cr>
-"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|.git\|\*.js'
-"let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:20'
 
 " 
 " -- TagBar --
@@ -286,9 +281,9 @@ let g:jedi#goto_command = '<Leader>d'
 " Find ocurrences
 let g:jedi#usages_command = '<Leader>o'
 " Find assignments
-let g:jedi#goto_assignments_command = '<Leader>a'
+ let g:jedi#goto_assignments_command = '<Leader>a'
 " Go to definition in new tab
-nmap <Leader>D :tab split<CR>:call jedi#goto()<CR>
+ nmap <Leader>D :tab split<CR>:call jedi#goto()<CR>
 
 " need showmode off for call signatures in command line  no{option}
 set noshowmode
@@ -343,6 +338,17 @@ cnoreabbrev Ack Ack!
 " " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
 
+" What do we use for linting
+let g:ale_linters = {
+\ 'javascript': ['eslint'],
+\}
+
+"\ 'ruby': ['rubocop']
+
+let g:ale_linters_explicit = 1
+
+" Lint Ruby files with binstub
+"let g:ale_ruby_rubocop_executable = 'bin/rubocop' 
 
 
 
