@@ -98,12 +98,16 @@ Plug 'ryanoasis/vim-devicons'
 
 " Typescript / COC
 Plug 'leafgarland/typescript-vim'
-Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile', 'for' : 'typescript' }
+" Plug 'neoclide/coc.nvim', {'branch' : 'release', 'do': 'yarn install --frozen-lockfile', 'for' : 'typescript' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Plug 'ianks/vim-tsx'
 
 Plug 'tpope/vim-rails'
+
+Plug 'sotte/presenting.vim'
+
+Plug 'alec-gibson/nvim-tetris'
 
 
 " My Extras
@@ -195,7 +199,7 @@ set scrolloff=3
 autocmd BufWritePre *.py :%s/\s\+$//e
 
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
-set shell=/bin/bash 
+set shell=/bin/zsh
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,7 +213,7 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 
 " Emmet
-"let g:user_emmet_leader_key='<leader>e'
+let g:user_emmet_leader_key='<leader>e'
 
 " PYTHON
 let g:python_highlight_all = 1
@@ -303,20 +307,7 @@ let g:airline#extensions#whitespace#enabled = 0
 nnoremap <leader>gb :Git blame<CR>
 
 
-"
-" -- Neomake  --
-"
-"autocmd! BufWritePost * Neomake
-"let g:neomake_python_python_maker = neomake#makers#ft#python#python()
-"let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
-"let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
-"let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
 
-" Disable error messages inside the buffer, next to the problematic line
-"let g:neomake_virtualtext_current_error = 0
-"let g:neomake_python_enabled_makers = ['flake8']
-
-"
 " -- Ack --
 " - use this guide https://www.freecodecamp.org/news/how-to-search-project-wide-vim-ripgrep-ack/
 " " Use ripgrep for searching ⚡️
@@ -341,16 +332,11 @@ nnoremap <Leader>/ :Ack!<Space>
 " What do we use for linting
 let g:ale_linters = {
 \ 'javascript': ['eslint'],
+\ 'ruby': ['rubocop']
 \}
 
-"\ 'ruby': ['rubocop']
 
 let g:ale_linters_explicit = 1
-
-" Lint Ruby files with binstub
-"let g:ale_ruby_rubocop_executable = 'bin/rubocop' 
-
-
 
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -361,6 +347,3 @@ if filereadable(expand("~/.config/nvim/custom.vim"))
   source ~/.config/nvim/custom.vim
 endif
 
-if filereadable(expand("~/.config/nvim/ben.vim"))
-  source ~/.config/nvim/ben.vim
-endif
